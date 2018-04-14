@@ -56,13 +56,13 @@ var palyPerm = str => {
   return true;
 };
 
+
+// time: O(n)
 // 'hello', 'hell' => true, removal, insert
 // 'hello', 'yello' => true, replace
 // 'hello', 'hel' => false
 var oneAway = (str1, str2) => {
-  if (Math.abs(str1.length - str2.length) > 1) {
-    return false;
-  }
+
   if (str1.length === str2.length) {
     return oneEditReplace(str1, str2);
   } else if (str1.length === str2.length + 1) {
@@ -70,6 +70,7 @@ var oneAway = (str1, str2) => {
   } else if (str1.length + 1 === str2.length) {
     return oneEditInsert(str2, str1);
   }
+  return false;
 };
 
 var oneEditInsert = (str1, str2) => {
@@ -103,4 +104,22 @@ var oneEditReplace = (str1, str2) => {
     }
   }
   return true;
+};
+
+// aabccccaaa => a2b1c4a3
+var strcomp = str => {
+  let result = '';
+  let counter = 0;
+  for (let i = 0; i < str.length; i++) {
+    if (result[result.length-1] !== str[i]) {
+      console.log(str[i]);
+      result += str[i];
+      counter++;
+    } else if (str[i + 1] !== result[str.length - 1]) {
+      counter++;
+      result += counter;
+      counter = 0;
+    }
+  }
+  return result;
 };
